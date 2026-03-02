@@ -217,6 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // So let's re-render news.
         loadNews();
     }
-
+    function toggleDemo(id) {
+        const demo = document.getElementById(id);
+        demo.classList.toggle("active");
+    }
 
 });
