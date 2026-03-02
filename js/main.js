@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // The news items themselves (title/desc) are from JSON and might not be translated unless JSON has multiple langs.
         // The "Read More" text IS translated in the template literal in loadNews.
         // So let's re-render news.
-
+        loadNews();
     }
 
     const demoButtons = document.querySelectorAll(".demo-btn");
