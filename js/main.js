@@ -192,6 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         langToggle.addEventListener('click', () => {
             console.log("Language toggle clicked");
             currentLang = currentLang === 'es' ? 'en' : 'es';
+            updateContent();
             langToggle.textContent = currentLang === 'es' ? 'EN' : 'ES';
         });
 
@@ -201,6 +202,25 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Language toggle button not found");
     }
 
+    function updateContent() {
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[currentLang] && translations[currentLang][key]) {
+                element.innerHTML = translations[currentLang][key];
+            }
+        });
+
+        // Update HTML lang attribute
+        document.documentElement.lang = currentLang;
+
+        // Reload news to update "Read More" text if needed
+        // But news content is dynamic, so we might need to re-render it or update it in place.
+        // For simplicity, we can re-call loadNews() or just update the static parts.
+        // The news items themselves (title/desc) are from JSON and might not be translated unless JSON has multiple langs.
+        // The "Read More" text IS translated in the template literal in loadNews.
+        // So let's re-render news.
+
+    }
 
     const demoButtons = document.querySelectorAll(".demo-btn");
 
