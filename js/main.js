@@ -23,6 +23,9 @@ const translations = {
         "languages": "English A2-B1, Spanish",
         "profile_role": "Software Engineer in Training",
         "skills_title": "Technical Arsenal",
+        "level_principiante": "Beginner",
+        "level_intermedio": "Intermediate",
+        "level_avanzado": "Advanced",
         "skills_prog": "Programming",
         "skills_db": "Databases",
         "skills_IDE": "IDEs & Tools",
@@ -77,6 +80,9 @@ const translations = {
         "languages": "Inglés A2-B1, Español",
         "profile_role": "Ingeniero de software en Formación",
         "skills_title": "Arsenal Técnico",
+        level_principiante: "Principiante",
+        level_intermedio: "Intermedio",
+        level_avanzado: "Avanzado",
         "skills_prog": "Programación",
         "skills_db": "Bases de Datos",
         "skills_IDE": "IDEs y Herramientas",
@@ -210,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const elements = document.querySelectorAll('[data-i18n]');
 
-        // 1️⃣ Fade + Blur OUT
+        // 1 Fade + Blur OUT
         elements.forEach((el, index) => {
             setTimeout(() => {
                 el.classList.add('lang-transition');
@@ -302,6 +308,83 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    const toggle = document.getElementById("themeToggle");
+    const body = document.body;
+    const modeText = document.getElementById("modeText");
+
+    //  POR DEFECTO: DARK MODE ACTIVADO
+    let savedTheme = localStorage.getItem("theme");
+
+    if (!savedTheme || savedTheme === "dark") {
+        body.classList.add("dark-mode");
+        body.classList.remove("light-mode");   // 
+        toggle.checked = true;
+        modeText.textContent = "ON";
+        modeText.classList.add("mode-on");
+    } else {
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");      // 
+        toggle.checked = false;
+        modeText.textContent = "OFF";
+        modeText.classList.add("mode-off");
+    }
+
+    // Evento toggle
+    toggle.addEventListener("change", () => {
+        if (toggle.checked) {
+            body.classList.add("dark-mode");
+            body.classList.remove("light-mode");
+            localStorage.setItem("theme", "dark");
+            modeText.textContent = "ON";
+            modeText.classList.remove("mode-off");
+            modeText.classList.add("mode-on");
+        } else {
+            body.classList.remove("dark-mode");
+            body.classList.add("light-mode");
+            localStorage.setItem("theme", "light");
+            modeText.textContent = "OFF";
+            modeText.classList.remove("mode-on");
+            modeText.classList.add("mode-off");
+        }
+    });
+
+
+
+    const skillSection = document.querySelector("#skills");
+    const bars = document.querySelectorAll(".level-fill");
+
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+
+                bars.forEach((bar, index) => {
+
+                    const level = parseInt(bar.getAttribute("data-level"));
+
+                    // 🔥 Asignar color según porcentaje
+                    if (level <= 40) {
+                        bar.classList.add("beginner");
+                    } else if (level <= 75) {
+                        bar.classList.add("intermediate");
+                    } else {
+                        bar.classList.add("advanced");
+                    }
+
+                    // Animación en cascada
+                    setTimeout(() => {
+                        bar.style.width = level + "%";
+                    }, index * 120);
+
+                });
+
+                skillObserver.unobserve(skillSection);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    skillObserver.observe(skillSection);
+
 
 });
 
