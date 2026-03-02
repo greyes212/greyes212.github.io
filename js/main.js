@@ -192,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
         langToggle.addEventListener('click', () => {
             console.log("Language toggle clicked");
             currentLang = currentLang === 'es' ? 'en' : 'es';
-            updateContent();
             langToggle.textContent = currentLang === 'es' ? 'EN' : 'ES';
         });
 
