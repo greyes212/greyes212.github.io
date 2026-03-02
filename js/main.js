@@ -219,30 +219,51 @@ document.addEventListener('DOMContentLoaded', () => {
         // The news items themselves (title/desc) are from JSON and might not be translated unless JSON has multiple langs.
         // The "Read More" text IS translated in the template literal in loadNews.
         // So let's re-render news.
-       
+
     }
 
     const demoButtons = document.querySelectorAll(".demo-btn");
 
     demoButtons.forEach(button => {
         button.addEventListener("click", function () {
+
             const demoId = this.getAttribute("data-demo");
-            const demo = document.getElementById(demoId);
+            const videoId = this.getAttribute("data-video");
+            const demoContainer = document.getElementById(demoId);
 
-            if (demo) {
-                demo.classList.toggle("active");
+            if (!demoContainer) return;
 
-                // Cambiar texto del botón dinámicamente
-                if (demo.classList.contains("active")) {
-                    this.textContent = currentLang === "es" ? "Ocultar Demo" : "Hide Demo";
+            // Si está abierto → cerrar y destruir iframe
+            if (demoContainer.classList.contains("active")) {
 
-                    // Scroll suave hacia el video
-                    setTimeout(() => {
-                        demo.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }, 200);
-                } else {
-                    this.textContent = currentLang === "es" ? "Ver Demo" : "View Demo";
-                }
+                demoContainer.classList.remove("active");
+                demoContainer.innerHTML = ""; // 🔥 destruye iframe
+
+                this.textContent = translations[currentLang].btn_view_demo;
+
+            } else {
+
+                // Crear iframe dinámicamente
+                const iframe = document.createElement("iframe");
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                iframe.title = "ITVision Demo";
+                iframe.frameBorder = "0";
+                iframe.allow =
+                    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                iframe.allowFullscreen = true;
+
+                demoContainer.appendChild(iframe);
+                demoContainer.classList.add("active");
+
+                this.textContent = translations[currentLang].btn_hide_demo;
+
+                // Scroll suave
+                setTimeout(() => {
+                    demoContainer.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }, 200);
             }
         });
     });
