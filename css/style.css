@@ -68,6 +68,12 @@ nav {
     font-weight: 700;
     letter-spacing: -1px;
     color: #fff;
+
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
 }
 
 .logo .dot {
