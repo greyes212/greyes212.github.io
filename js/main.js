@@ -362,7 +362,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const level = parseInt(bar.getAttribute("data-level"));
 
-                    // 🔥 Asignar color según porcentaje
                     if (level <= 40) {
                         bar.classList.add("beginner");
                     } else if (level <= 75) {
@@ -371,19 +370,44 @@ document.addEventListener('DOMContentLoaded', () => {
                         bar.classList.add("advanced");
                     }
 
-                    // Animación en cascada
                     setTimeout(() => {
                         bar.style.width = level + "%";
-                    }, index * 120);
-
+                    }, index * 150);
                 });
 
                 skillObserver.unobserve(skillSection);
             }
         });
-    }, { threshold: 0.05 });
+    }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    });
 
-    skillObserver.observe(skillSection);
+
+    // AQUÍ VA EL FALLBACK PARA MÓVIL
+    if (window.innerWidth < 900) {
+        bars.forEach((bar, index) => {
+
+            const level = parseInt(bar.getAttribute("data-level"));
+
+            if (level <= 40) {
+                bar.classList.add("beginner");
+            } else if (level <= 75) {
+                bar.classList.add("intermediate");
+            } else {
+                bar.classList.add("advanced");
+            }
+
+            setTimeout(() => {
+                bar.style.width = level + "%";
+            }, index * 150);
+        });
+    } else {
+        // Solo usar observer en pantallas grandes
+        if (skillSection) {
+            skillObserver.observe(skillSection);
+        }
+    }
 
 
 });
