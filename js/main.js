@@ -217,9 +217,30 @@ document.addEventListener('DOMContentLoaded', () => {
         // So let's re-render news.
         loadNews();
     }
-    function toggleDemo(id) {
-        const demo = document.getElementById(id);
-        demo.classList.toggle("active");
-    }
+
+    const demoButtons = document.querySelectorAll(".demo-btn");
+
+    demoButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const demoId = this.getAttribute("data-demo");
+            const demo = document.getElementById(demoId);
+
+            if (demo) {
+                demo.classList.toggle("active");
+
+                // Cambiar texto del botón dinámicamente
+                if (demo.classList.contains("active")) {
+                    this.textContent = currentLang === "es" ? "Ocultar Demo" : "Hide Demo";
+
+                    // Scroll suave hacia el video
+                    setTimeout(() => {
+                        demo.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }, 200);
+                } else {
+                    this.textContent = currentLang === "es" ? "Ver Demo" : "View Demo";
+                }
+            }
+        });
+    });
 
 });
