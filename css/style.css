@@ -1401,9 +1401,9 @@ body.dark-mode .menu-toggle i {
 body.light-mode .menu-text {
     color: #ae00ffa9;
     text-shadow:
-        0 0 5px #ff00c8be,
-        0 0 10px #ff00c8c7,
-        0 0 20px #ff00c8c7;
+        0 0 5px #ff00c86c,
+        0 0 10px #ff00c885,
+        0 0 20px #ff00c877;
 }
 
 body.light-mode .menu-toggle i {
@@ -1412,5 +1412,81 @@ body.light-mode .menu-toggle i {
 @media (min-width: 1000px) {
     .menu-toggle {
         display: none;
+    }
+}
+
+.scroll-text {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+.scroll-top {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    cursor: pointer;
+
+    font-size: 18px;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    z-index: 9999;
+}
+
+/* Visible */
+.scroll-top.show {
+    opacity: 1;
+    pointer-events: auto;
+    animation: neonPulse 1.8s infinite alternate;
+}
+
+/* -------------------------
+   🌙 DARK MODE
+------------------------- */
+body.dark-mode .scroll-top {
+    background: #00f7ff;
+    color: #000;
+    box-shadow: 0 0 8px #00f7ff;
+}
+
+/* -------------------------
+   ☀ LIGHT MODE
+------------------------- */
+body:not(.dark-mode) .scroll-top {
+    background: #000;
+    color: #00f7ff;
+    box-shadow: 0 0 8px #00f7ff;
+}
+
+/* -------------------------
+   ✨ ANIMACIÓN NEON
+------------------------- */
+@keyframes neonPulse {
+    0% {
+        box-shadow:
+            0 0 5px #00f7ff,
+            0 0 10px #00f7ff,
+            0 0 15px #00f7ff;
+        transform: scale(1);
+    }
+    100% {
+        box-shadow:
+            0 0 15px #00f7ff,
+            0 0 25px #00f7ff,
+            0 0 40px #00f7ff;
+        transform: scale(1.08);
     }
 }

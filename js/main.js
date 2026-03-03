@@ -32,6 +32,7 @@ const translations = {
         "skills_back": "Backend & Frameworks",
         "skills_systems": "Systems",
         "skills_devops": "Cloud & DevOps",
+        "skills_ai": "Artificial Intelligence",
         "exp_title": "Experience",
         "exp_1_role": "IT Technician / Developer",
         "exp_1_company": "Fundación Esplai – Madrid",
@@ -80,15 +81,16 @@ const translations = {
         "languages": "Inglés A2-B1, Español",
         "profile_role": "Ingeniero de software en Formación",
         "skills_title": "Arsenal Técnico",
-        level_principiante: "Principiante",
-        level_intermedio: "Intermedio",
-        level_avanzado: "Avanzado",
+        "level_principiante": "Principiante",
+        "level_intermedio": "Intermedio",
+        "level_avanzado": "Avanzado",
         "skills_prog": "Programación",
         "skills_db": "Bases de Datos",
         "skills_IDE": "IDEs y Herramientas",
         "skills_back": "Backend y Frameworks",
         "skills_systems": "Sistemas",
         "skills_devops": "Cloud & DevOps",
+        "skills_ai": "Inteligencia Artificial",
         "exp_title": "Experiencia",
         "exp_1_role": "Técnico Informático / Desarrollador",
         "exp_1_company": "Fundación Esplai – Madrid",
@@ -430,6 +432,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+        const scrollPosition = window.scrollY;
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        const scrollPercent = (scrollPosition / totalHeight) * 100;
+
+        if (scrollPercent > 25) {
+            scrollTopBtn.classList.add("show");
+        } else {
+            scrollTopBtn.classList.remove("show");
+        }
+    });
+
+    // Click → volver arriba
+    scrollTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
 
     // Ejecutar al cargar
     handleResponsiveTogglePlacement();
