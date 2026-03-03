@@ -27,7 +27,7 @@
     <div id="canvas-container"></div>
 
     <header class="glass-header">
-        <nav>
+        <nav class="navbar">
             <div class="logo">
                 <img src="favicon.ico" alt="Gianfranco Reyes Logo" class="logo-img">
             </div>
@@ -41,17 +41,20 @@
                 <li><a href="#contact" data-i18n="nav_contact">Contacto</a></li>
                 <li><button id="lang-toggle" class="lang-btn">EN</button></li>
             </ul>
-            <div class="theme-switch-wrapper">
-                <span class="theme-label">Dark Mode</span>
+            <div class="right-controls">
+                <div class="theme-switch-wrapper" id="themeWrapper">
+                    <span class="theme-label">Dark Mode</span>
 
-                <label class="switch">
-                    <input type="checkbox" id="themeToggle">
-                    <span class="slider"></span>
-                </label>
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider"></span>
+                    </label>
 
-                <span class="mode-text" id="modeText">OFF</span>
+                    <span class="mode-text" id="modeText">ON</span>
+                </div>
             </div>
             <div class="menu-toggle">
+                <span class="menu-text">MENÚ</span>
                 <i class="fas fa-bars"></i>
             </div>
         </nav>

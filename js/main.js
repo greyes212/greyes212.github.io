@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // DOM Elements
     const menuToggle = document.querySelector('.menu-toggle');
+    const themeWrapper = document.getElementById("themeWrapper");
     const navLinks = document.querySelector('.nav-links');
     const langToggle = document.getElementById('lang-toggle');
-    const newsGrid = document.getElementById('news-grid');
 
     // Mobile Menu Toggle
     if (menuToggle && navLinks) {
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, index * 30); // micro delay en cascada
         });
 
-        // ⏳ Delay principal (0.6s)
+        //  Delay principal (0.6s)
         setTimeout(() => {
 
             elements.forEach((el, index) => {
@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (demoContainer.classList.contains("active")) {
 
                 demoContainer.classList.remove("active");
-                demoContainer.innerHTML = ""; // 🔥 destruye iframe
+                demoContainer.innerHTML = ""; //  destruye iframe
 
                 this.textContent = translations[currentLang].btn_view_demo;
 
@@ -332,6 +332,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Evento toggle
     toggle.addEventListener("change", () => {
+
+        // Activar animación 
+        document.body.classList.add("theme-fade");
+
+        setTimeout(() => {
+            document.body.classList.remove("theme-fade");
+        }, 500);
+
         if (toggle.checked) {
             body.classList.add("dark-mode");
             body.classList.remove("light-mode");
@@ -348,8 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modeText.classList.add("mode-off");
         }
     });
-
-
 
     const skillSection = document.querySelector("#skills");
     const bars = document.querySelectorAll(".level-fill");
@@ -409,6 +415,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
+
+    const nav = document.querySelector("nav");
+
+    function handleResponsiveTogglePlacement() {
+        if (window.innerWidth <= 1000) {
+            if (!navLinks.contains(themeWrapper)) {
+                navLinks.appendChild(themeWrapper);
+            }
+        } else {
+            if (!nav.contains(themeWrapper)) {
+                nav.insertBefore(themeWrapper, document.querySelector(".menu-toggle"));
+            }
+        }
+    }
+
+    // Ejecutar al cargar
+    handleResponsiveTogglePlacement();
+
+    // Ejecutar al redimensionar
+    window.addEventListener("resize", handleResponsiveTogglePlacement);
 
 });
 
